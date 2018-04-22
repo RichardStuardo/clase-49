@@ -1,0 +1,53 @@
+<iframe width="560" height="315" src="https://www.youtube.com/embed/B3Ck921TxfA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+	<%= form_with model: Comment.new do |f| %>
+	 <%= f.label :content %>
+	 <%= f.text_field :content %>
+	 <%= f.submit :enviar %>
+	<% end %>
+
+<form action="<%= comments_path %>">
+	
+	<input name="q">
+
+</form>
+
+<div id="comment">
+	<table class="table table-hover">
+		<tbody>
+			<%= render @comment %>
+		</tbody>
+	</table>	
+</div>
+
+<script>
+	$("[name=q]").keyup(function(event){
+$.ajax({
+ url: "<%= comments_path %>",
+ type: 'GET',
+ dataType: 'script',
+ data: {q: $(this).val()}
+})
+</script>
+
+
+<!-- <script>
+	
+$('[name=commit]').click(function(e){
+ e.preventDefault(); // Evitamos el comportamiento del formulario
+ 
+ var form = $("#myForm");
+ 
+ var new_content = $("[name= 'comment[content]']").val();
+ $.ajax({
+	 url: form.action ,
+	 type: 'POST',
+	 dataType: 'json',
+	 data: form.serialize()
+ })
+ .done(function(data) {
+ $("#comment").append("<p>" +  data.content + "</p>" );
+ });
+});
+
+</script> -->
